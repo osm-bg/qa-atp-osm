@@ -73,7 +73,7 @@ function save_result(data, {key, value, spider, compare_keys, name}) {
 		},
 		data
 	};
-	const filename = `output/${key}_${value}_${spider}.json`;
+	const filename = `output/${key}-${value}-${spider}.json`;
 	fs.writeFileSync(filename, JSON.stringify(data_for_saving));
 }
 
@@ -135,5 +135,14 @@ async function start() {
 		console.log(`Finished ${atp_spider}`);
 	}
 	fs.writeFileSync(`output/metadata.json`, JSON.stringify(stats));
+	{
+		const rows = ['export const brands_map = new Map();'];
+		for(const { key, value, spider } of stats) {
+			const file_key = `${key}-${value}-${spider}`;
+			const file_value = `new URL('${file_key}.json', import.meta.url)`;
+			rows.push(`brands_map.set('${file_key}', ${file_value});`);
+		}
+		fs.writeFileSync('output/brands-map.js', rows.join('\n') + '\n');
+	}
 }
 start();
