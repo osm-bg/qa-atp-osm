@@ -1,0 +1,8 @@
+{
+    "atp_url": "https://data.alltheplaces.xyz",
+    "max_distance": 250,
+	"allowed_countries": ["BG"],
+    "run_only": ["ecopack_bg", "ecobulpack_bg"],
+    "debug": false,
+    "skip": ["vivacom_bg", "postbank_bg", "t_market_bg"]
+}
