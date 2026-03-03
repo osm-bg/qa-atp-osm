@@ -624,5 +624,17 @@
 				]
 			}
 		]
+	},
+	{
+		"name": "Electrocharge",
+		"atp_spider": "electrocharge_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "charging_station",
+				"wikidata": ["brand", "Q133307258"],
+				"compare_keys": false
+			}
+		]
 	}
 ]
