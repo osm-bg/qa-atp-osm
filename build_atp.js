@@ -39,6 +39,15 @@ export async function populate_atp_cache(spiders, atp_cache) {
 			if(!atp_cache[atp_spider]) {
 				try {
 					atp_cache[atp_spider] = await fetch_atp_data(spider_url?spider_url:atp_spider, last_run);
+					if(atp_spider.overwrite_locations) {
+						for(const overwrite_location of atp_spider.overwrite_locations) {
+							const {ref, lat, lon} = overwrite_location;
+							const atp_item = atp_cache[atp_spider].find(item => item.tags.ref === ref);
+							if(atp_item) {
+								atp_item.coordinates = [lat, lon];
+							}
+						}
+					}
 				}
 				catch(error) {
 					console.error(atp_spider, error);

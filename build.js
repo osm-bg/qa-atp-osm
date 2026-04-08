@@ -4,7 +4,17 @@ import { distance, drop_tags, are_tags_mismatched, calc_bbox, generate_metadata 
 import { fetch_all_osm_data } from './build_osm.js';
 import { populate_atp_cache } from './build_atp.js';
 
-function match_atp_to_osm(osm, atp_points, max_distance){
+function match_atp_to_osm(osm, atp_points, max_distance, match_by_ref) {
+	if(match_by_ref && osm.tags.ref) {
+		const ref = osm.tags.ref;
+		const atp_index = atp_points.findIndex(atp => atp?.tags?.ref === ref);
+		if(atp_index != -1) {
+			return {index: atp_index, distance: distance(atp_points[atp_index], osm)};
+		}
+		else {
+			console.log(`No match by ref ${ref}, ${typeof ref}`);
+		}
+	}
 	const bbox = calc_bbox(osm.coordinates, max_distance);
 	const distances = atp_points.map(atp => distance(atp, osm, bbox));
 	const closest_index = distances.indexOf(Math.min(...(distances)));
@@ -15,13 +25,13 @@ function match_atp_to_osm(osm, atp_points, max_distance){
 	return {index: -1};
 }
 
-function process(/*shop,*/ osm_points, atp_points, compare_keys){
+function process(/*shop,*/ osm_points, atp_points, compare_keys, match_by_ref){
 	let result = [];
 
 	const max_distance = /*shop.max_distance?shop.max_distance:*/configs.max_distance;
 
 	osm_points.forEach((osm) => {
-		const match = match_atp_to_osm(osm, atp_points, max_distance);
+		const match = match_atp_to_osm(osm, atp_points, max_distance, match_by_ref);
 		var temp = {osm: drop_tags(osm), atp: false};
 
 		if(match.index != -1){
@@ -127,7 +137,7 @@ async function start() {
 			if(relevant_atp_points.length === 0 || osm_points.length === 0) {
 				continue;
 			}
-			const matched_elements = process(osm_points, relevant_atp_points, osm_item.compare_keys);
+			const matched_elements = process(osm_points, relevant_atp_points, osm_item.compare_keys, osm_item.match_by_ref);
 			save_result(matched_elements, {key: osm_item.key, value: osm_item.value, spider: atp_spider, compare_keys: osm_item.compare_keys, name});
 			const metadata = generate_metadata(matched_elements, osm_points, relevant_atp_points, {name, spider: atp_spider, key: osm_item.key, value: osm_item.value, compare_keys: osm_item.compare_keys});
 			stats.push(metadata);

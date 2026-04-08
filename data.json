@@ -9,7 +9,8 @@
 				"wikidata": ["brand", "Q108169047"],
 				"compare_keys": [
 					"opening_hours"
-				]
+				],
+				"match_by_ref": true
 			}
 		]
 	},
@@ -47,6 +48,14 @@
 					"opening_hours",
 					"website",
 					"ref"
+				],
+				"match_by_ref": true,
+				"overwrite_locations": [
+					{
+						"ref": "BG5400",
+						"lat": 41.3979825,
+						"lon": 23.1920926
+					}
 				]
 			}
 		]
@@ -151,6 +160,14 @@
 					"opening_hours",
 					"website",
 					"ref"
+				],
+				"match_by_ref": true,
+				"overwrite_locations": [
+					{
+						"ref": "29",
+						"lat": 42.2834465, 
+						"lon": 22.7005133
+					}
 				]
 			}
 		]
