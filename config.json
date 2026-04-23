@@ -2,7 +2,6 @@
     "atp_url": "https://alltheplaces-data.openaddresses.io",
     "max_distance": 256,
 	"allowed_countries": ["BG"],
-    "run_only": ["ecopack_bg", "ecobulpack_bg"],
-    "debug": false,
-    "skip": ["postbank_bg"]
+    "run_only": [],
+    "skip": ["postbank_bg", "hugo_boss", "mtexx_bg", "minimart_bg", "inditex", "sopharmacy_bg"]
 }
