@@ -2,20 +2,21 @@ import fs from 'fs';
 const configs = JSON.parse(fs.readFileSync('config.json'));
 
 function preprocess_atp_data(data) {
-    data.features = data.features
-	.filter(feature => feature.geometry && configs.allowed_countries.includes(feature.properties['addr:country']));
-	data.features.forEach(item => {
+    return data.features
+	.filter(feature => feature.geometry && configs.allowed_countries.includes(feature.properties['addr:country']))
+	.map(item => {
 		item.tags = item.properties;
         delete item.properties;
-        item.coordinates = item.geometry.coordinates.toReversed();
+        item.coordinates = item.geometry.coordinates.toReversed()
+		.map(coord => parseFloat(coord.toFixed(5)));
         delete item.geometry;
 		delete item.type;
 
 		if(item.tags.opening_hours === 'Mo-Su 00:00-24:00') {
 			item.tags.opening_hours = '24/7';
 		}
+		return item;
     });
-	return data.features;
 }
 
 async function fetch_atp_data(spider, run) {
