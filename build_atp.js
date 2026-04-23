@@ -21,6 +21,10 @@ function preprocess_atp_data(data) {
 
 async function fetch_atp_data(spider, run) {
 	let response;
+	const local_spider_exists = fs.existsSync('cache') && fs.existsSync(`cache/${spider}-${run}.geojson`);
+	if(local_spider_exists) {
+		response = fs.readFileSync(`cache/${spider}-${run}.geojson`);
+	}
 	if(spider.startsWith('https')) {
 		response = await fetch(spider);
 	}
@@ -28,6 +32,12 @@ async function fetch_atp_data(spider, run) {
 		response = await fetch(`${configs.atp_url}/runs/${run}/output/${spider}.geojson`);
 	}
 	const data = await response.json();
+	if(!local_spider_exists) {
+		if(!fs.existsSync('cache')) {
+			fs.mkdirSync('cache');
+		}
+		fs.writeFileSync(`cache/${spider}-${run}.geojson`, JSON.stringify(data));
+	}
 	return preprocess_atp_data(data);
 }
 
