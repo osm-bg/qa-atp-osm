@@ -1,4 +1,4 @@
-export function distance(a, b, bbox=false) {
+export function caclulate_distance(a, b, bbox=false) {
 	if(!a || !b) {
 		return +Infinity;
 	}
@@ -61,29 +61,6 @@ function drop_atp_tags(element) {
 	});
 }
 
-export function are_tags_mismatched(osm_tags, atp_tags, tags_to_compare){
-	if(!tags_to_compare){
-		return true;
-	}
-	return tags_to_compare.some(tag => {
-		if(tag == 'fuel:*'){
-			//const fuels_to_check = ['cng', 'lpg', 'octane_95', 'octane_98', 'octane_100', 'adblue', 'HGV_diesel', 'diesel'];
-			var atp_fuels = Object.keys(atp_tags).filter(tag => tag.indexOf('fuel:')==0);
-			var osm_fuels = Object.keys(osm_tags).filter(tag => tag.indexOf('fuel:')==0);
-			var tags_to_remove = osm_fuels.filter(fuel => atp_fuels.indexOf(fuel)==-1);
-			var tags_to_update = atp_fuels.filter(fuel => osm_fuels.indexOf(fuel)==-1 || osm_tags[fuel]!='yes');
-			return tags_to_remove.length+tags_to_update.length>0;
-		}
-		let is_atp_void = atp_tags[tag]=='' || !atp_tags[tag];
-		var missing_tag = osm_tags[tag]==undefined && atp_tags[tag];
-		var wrong_tag_value = osm_tags[tag] !== atp_tags[tag];
-		if(missing_tag || !is_atp_void && wrong_tag_value){
-			return true;
-		}
-		return false;
-	});
-}
-
 export function calc_bbox(coordinates, dist) {
 	//const dist = 1 * configs.max_distance;
 	const degree_in_meters = 111111;
@@ -96,20 +73,20 @@ export function calc_bbox(coordinates, dist) {
 	]];
 }
 
-export function generate_metadata(matched_elements, osm_points, atp_points, brand) {
-	const total_ATP_points = atp_points.length;
-	const total_OSM_points = osm_points.length;
+export function generate_metadata(spider, matched_elements) {
+	const total_ATP_points = matched_elements.filter(row => row.atp).length;
+	const total_OSM_points = matched_elements.filter(row => row.osm).length;
+	const matched_count = matched_elements.filter(row => row.atp && row.osm).length;
+	const { name, key, value, spider_name } = spider;
 	return {
 		stats: {
 			atp: total_ATP_points,
 			osm: total_OSM_points,
-			tags_mismatches: matched_elements.filter(row => row.tags_mismatch).length,
-			percent_atp_to_osm_matched: parseFloat((matched_elements.filter(row => row.atp && row.osm).length / total_ATP_points * 100).toFixed(1))
+			percent_matched: parseFloat((matched_count / total_ATP_points * 100).toFixed(1))
 		},
-		name: brand.name,
-		spider: brand.spider,
-		key: brand.key,
-		value: brand.value,
-		fuzzy_coords: brand.fuzzy_coords
+		name,
+		spider_name,
+		key,
+		value
 	}
 }

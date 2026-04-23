@@ -1,6 +1,6 @@
 {
     "atp_url": "https://alltheplaces-data.openaddresses.io",
-    "max_distance": 250,
+    "max_distance": 256,
 	"allowed_countries": ["BG"],
     "run_only": ["ecopack_bg", "ecobulpack_bg"],
     "debug": false,

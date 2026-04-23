@@ -1,14 +1,16 @@
 [
 	{
 		"name": "Lidl",
-		"atp_spider": "lidl_bg",
+		"spider_name": "lidl_bg",
 		"osm": [
 			{
 				"key": "shop",
 				"value": "supermarket",
 				"wikidata": ["brand", "Q108169047"],
 				"compare_keys": [
-					"opening_hours"
+					"opening_hours",
+					"ref",
+					"website"
 				],
 				"match_by_ref": true
 			}
@@ -16,7 +18,7 @@
 	},
 	{
 		"name": "Банка ДСК",
-		"atp_spider": "dsk_bank_bg",
+		"spider_name": "dsk_bank_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -31,6 +33,7 @@
 				"value": "bank",
 				"wikidata": ["brand", "Q5206146"],
 				"compare_keys": [
+					"ref",
 					"opening_hours"
 				]
 			}
@@ -38,7 +41,7 @@
 	},
 	{
 		"name": "Kaufland",
-		"atp_spider": "kaufland",
+		"spider_name": "kaufland",
 		"osm": [
 			{
 				"key": "shop",
@@ -62,7 +65,7 @@
 	},
 	{
 		"name": "Yettel",
-		"atp_spider": "yettel_bg",
+		"spider_name": "yettel_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -76,7 +79,7 @@
 	},
 	{
 		"name": "M-texx",
-		"atp_spider": "mtexx_bg",
+		"spider_name": "mtexx_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -88,7 +91,7 @@
 	},
 	{
 		"name": "dm",
-		"atp_spider": "dm",
+		"spider_name": "dm",
 		"osm": [
 			{
 				"key": "shop",
@@ -104,7 +107,7 @@
 	},
 	{
 		"name": "Billa",
-		"atp_spider": "billa",
+		"spider_name": "billa",
 		"osm": [
 			{
 				"key": "shop",
@@ -119,7 +122,7 @@
 	},
 	{
 		"name": "kik",
-		"atp_spider": "kik",
+		"spider_name": "kik",
 		"osm": [
 			{
 				"key": "shop",
@@ -134,7 +137,7 @@
 	},
 	{
 		"name": "Лукойл",
-		"atp_spider": "lukoil",
+		"spider_name": "lukoil",
 		"osm": [
 			{
 				"key": "amenity",
@@ -150,7 +153,7 @@
 	},
 	{
 		"name": "Фантастико",
-		"atp_spider": "fantastiko_bg",
+		"spider_name": "fantastiko_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -174,7 +177,7 @@
 	},
 	{
 		"name": "Техномаркет",
-		"atp_spider": "technomarket_bg",
+		"spider_name": "technomarket_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -189,7 +192,7 @@
 	},
 	{
 		"name": "Централна Кооперативна Банка",
-		"atp_spider": "ccbank_bg",
+		"spider_name": "ccbank_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -209,7 +212,7 @@
 	},
 	{
 		"name": "Технополис",
-		"atp_spider": "technopolis_bg",
+		"spider_name": "technopolis_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -224,7 +227,7 @@
 	},
 	{
 		"name": "Петрол",
-		"atp_spider": "petrol_bg",
+		"spider_name": "petrol_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -241,7 +244,7 @@
 	},
 	{
 		"name": "OMV",
-		"atp_spider": "omv",
+		"spider_name": "omv",
 		"osm": [
 			{
 				"key": "amenity",
@@ -262,7 +265,7 @@
 	},
 	{
 		"name": "BoxNow",
-		"atp_spider": "box_now",
+		"spider_name": "box_now",
 		"osm": [
 			{
 				"key": "amenity",
@@ -276,14 +279,15 @@
 	},
 	{
 		"name": "easybox",
-		"atp_spider": "easybox_bg",
+		"spider_name": "easybox_bg",
 		"osm": [
 			{
 				"key": "amenity",
 				"value": "parcel_locker",
 				"wikidata": ["brand", "Q114496224"],
 				"compare_keys": [
-					"opening_hours"
+					"opening_hours",
+					"ref"
 				]
 			}
 		]
@@ -291,7 +295,7 @@
 	
 	{
 		"name": "Rompetrol",
-		"atp_spider": "rompetrol",
+		"spider_name": "rompetrol",
 		"osm": [
 			{
 				"key": "amenity",
@@ -308,7 +312,7 @@
 	},
 	{
 		"name": "Vivacom",
-		"atp_spider": "vivacom_bg",
+		"spider_name": "vivacom_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -323,7 +327,7 @@
 	},
 	{
 		"name": "A1",
-		"atp_spider": "a1_bg",
+		"spider_name": "a1_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -338,7 +342,7 @@
 	},
 	{
 		"name": "I&G Brokers",
-		"atp_spider": "i_and_g_brokers",
+		"spider_name": "i_and_g_brokers",
 		"osm": [
 			{
 				"key": "office",
@@ -353,7 +357,7 @@
 	},
 	{
 		"name": "EasyPay",
-		"atp_spider": "easypay",
+		"spider_name": "easypay",
 		"osm": [
 			{
 				"key": "amenity",
@@ -367,7 +371,7 @@
 	},
 	{
 		"name": "Pepco",
-		"atp_spider": "pepco",
+		"spider_name": "pepco",
 		"osm": [
 			{
 				"key": "shop",
@@ -379,7 +383,7 @@
 	},
 	{
 		"name": "Lilly",
-		"atp_spider": "lilly_bg",
+		"spider_name": "lilly_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -394,7 +398,7 @@
 	},
 	{
 		"name": "Български пощи",
-		"atp_spider": "bulgarian_posts_bg",
+		"spider_name": "bulgarian_posts_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -408,7 +412,7 @@
 	},
 	{
 		"name": "Jysk",
-		"atp_spider": "jysk",
+		"spider_name": "jysk",
 		"osm": [
 			{
 				"key": "shop",
@@ -423,7 +427,7 @@
 	},
 	{
 		"name": "TexCycle",
-		"atp_spider": "texcycle_bg",
+		"spider_name": "texcycle_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -435,7 +439,7 @@
 	},
 	{
 		"name": "Shell",
-		"atp_spider": "shell",
+		"spider_name": "shell",
 		"osm": [
 			{
 				"key": "amenity",
@@ -455,7 +459,7 @@
 	},
     {
         "name": "Cashterminal",
-        "atp_spider": "cashterminal_bg",
+        "spider_name": "cashterminal_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -467,7 +471,7 @@
     },
     {
         "name": "Fibank",
-        "atp_spider": "fibank_bg",
+        "spider_name": "fibank_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -490,7 +494,7 @@
     },
     {
         "name": "Пощенска банка",
-        "atp_spider": "postbank_bg",
+        "spider_name": "postbank_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -513,7 +517,7 @@
     },
     {
         "name": "Еконт",
-        "atp_spider": "econt_bg",
+        "spider_name": "econt_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -538,7 +542,7 @@
     },
 	{
 		"name": "Т-Маркет",
-		"atp_spider": "t_market_bg",
+		"spider_name": "t_market_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -552,7 +556,7 @@
 	},
 	{
 		"name": "Praktiker",
-		"atp_spider": "praktiker_bg",
+		"spider_name": "praktiker_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -566,7 +570,7 @@
 	},
 	{
 		"name": "Minimart",
-		"atp_spider": "minimart_bg",
+		"spider_name": "minimart_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -580,7 +584,7 @@
 	},
 	{
 		"name": "ОББ",
-		"atp_spider": "ubb_bg",
+		"spider_name": "ubb_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -604,7 +608,7 @@
 	},
 	{
 		"name": "Екобулпак",
-		"atp_spider": "ecobulpack_bg",
+		"spider_name": "ecobulpack_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -616,7 +620,7 @@
 	},
 	{
 		"name": "Екопак",
-		"atp_spider": "ecopack_bg",
+		"spider_name": "ecopack_bg",
 		"osm": [
 			{
 				"key": "amenity",
@@ -628,7 +632,7 @@
 	},
 	{
 		"name": "SoPharmacy",
-		"atp_spider": "sopharmacy_bg",
+		"spider_name": "sopharmacy_bg",
 		"osm": [
 			{
 				"key": "shop",
@@ -644,13 +648,236 @@
 	},
 	{
 		"name": "Electrocharge",
-		"atp_spider": "electrocharge_bg",
+		"spider_name": "electrocharge_bg",
 		"osm": [
 			{
 				"key": "amenity",
 				"value": "charging_station",
 				"wikidata": ["brand", "Q133307258"],
 				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "Unicredit Bulbank",
+		"spider_name": "unicredit_bulbank_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "atm",
+				"wikidata": ["brand", "Q7884635"],
+				"compare_keys": [
+					"ref"
+				]
+			},
+			{
+				"key": "amenity",
+				"value": "bank",
+				"wikidata": ["brand", "Q7884635"],
+				"compare_keys": [
+					"opening_hours",
+					"ref"
+				]
+			}
+		]
+	},
+	{
+		"name": "Go Grill",
+		"spider_name": "go_grill_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "fast_food",
+				"wikidata": ["brand", "Q122839782"],
+				"compare_keys": [
+					"opening_hours",
+					"phone",
+					"ref"
+				]
+			}
+		]
+	},
+	{
+		"name": "Subway",
+		"spider_name": "subway_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "fast_food",
+				"wikidata": ["brand", "Q244457"],
+				"compare_keys": [
+					"opening_hours",
+					"website"
+				]
+			}
+		]
+	},
+	{
+		"name": "Bershka",
+		"spider_name": "inditex",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q827258"],
+				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "Massimo Dutti",
+		"spider_name": "inditex",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q788231"],
+				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "Zara Home",
+		"spider_name": "inditex",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "interior_decoration",
+				"wikidata": ["brand", "Q3114054"],
+				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "Stradivarius",
+		"spider_name": "inditex",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q3322945"],
+				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "Pull & Bear",
+		"spider_name": "inditex",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q691029"],
+				"compare_keys": false
+			}
+		]
+	},
+	{
+		"name": "McDonald's",
+		"spider_name": "mcdonalds_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "fast_food",
+				"wikidata": ["brand", "Q38076"],
+				"compare_keys": [
+					"opening_hours",
+					"phone",
+					"email",
+					"internet_access",
+					"drive_through",
+					"takeaway"
+				]
+			}
+		]
+	},
+	{
+		"name": "H&M",
+		"spider_name": "hm",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q188326"],
+				"compare_keys": [
+					"opening_hours",
+					"ref"
+				]
+			}
+		]
+	},
+	{
+		"name": "Sinsay",
+		"spider_name": "sinsay",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "Q107410579"],
+				"compare_keys": [
+					"opening_hours"
+				]
+			}
+		]
+	},
+	{
+		"name": "Hugo",
+		"spider_name": "hugo_boss",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "???"],
+				"compare_keys": [
+					"opening_hours",
+					"phone",
+					"ref",
+					"website"
+				]
+			}
+		]
+	},
+	{
+		"name": "Boss",
+		"spider_name": "hugo_boss",
+		"osm": [
+			{
+				"key": "shop",
+				"value": "clothes",
+				"wikidata": ["brand", "???"],
+				"compare_keys": [
+					"opening_hours",
+					"phone",
+					"ref",
+					"website"
+				]
+			}
+		]
+	},
+	{
+		"name": "Pigeon Express",
+		"spider_name": "pigeon_express_bg",
+		"spider_url": "https://alltheplaces-data.openaddresses.io/ci/alltheplaces-fetch:b3c8a6dc-ee02-4f4e-bcba-71729f7620c0/pigeon_express_bg/output.geojson",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "post_office",
+				"wikidata": ["brand", "Q138668232"],
+				"compare_keys": [
+					"opening_hours",
+					"phone",
+					"ref",
+					"branch"
+				]
+			},
+			{
+				"key": "amenity",
+				"value": "parcel_locker",
+				"wikidata": ["brand", "Q138668232"],
+				"compare_keys": [
+					"opening_hours",
+					"ref"
+				]
 			}
 		]
 	}

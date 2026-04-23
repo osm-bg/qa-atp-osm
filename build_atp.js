@@ -19,24 +19,25 @@ function preprocess_atp_data(data) {
     });
 }
 
-async function fetch_atp_data(spider, run) {
+async function fetch_atp_data({ spider_name, spider_url}, run) {
 	let response;
-	const local_spider_exists = fs.existsSync('cache') && fs.existsSync(`cache/${spider}-${run}.geojson`);
+	const cache_path = `cache/${spider_name}-${run}.geojson`;
+	const local_spider_exists = fs.existsSync('cache') && fs.existsSync(cache_path);
 	if(local_spider_exists) {
-		response = fs.readFileSync(`cache/${spider}-${run}.geojson`);
+		response = fs.createReadStream(cache_path);
 	}
-	if(spider.startsWith('https')) {
-		response = await fetch(spider);
+	if(spider_url && spider_url.startsWith('https')) {
+		response = await fetch(spider_url);
 	}
 	else {
-		response = await fetch(`${configs.atp_url}/runs/${run}/output/${spider}.geojson`);
+		response = await fetch(`${configs.atp_url}/runs/${run}/output/${spider_name}.geojson`);
 	}
 	const data = await response.json();
 	if(!local_spider_exists) {
 		if(!fs.existsSync('cache')) {
 			fs.mkdirSync('cache');
 		}
-		fs.writeFileSync(`cache/${spider}-${run}.geojson`, JSON.stringify(data));
+		fs.writeFileSync(cache_path, JSON.stringify(data));
 	}
 	return preprocess_atp_data(data);
 }
@@ -44,29 +45,36 @@ async function fetch_atp_data(spider, run) {
 export async function populate_atp_cache(spiders, atp_cache) {
     const last_run = await get_last_atp_run();
 	let promises = [];
-	spiders.forEach(({atp_spider, spider_url}, index) => {
+	spiders.forEach((spider, index) => {
+		const { spider_name, spider_url } = spider;
 		const promise = new Promise(resolve => setTimeout(async () => {
-			console.log(`Fetching ATP data for ${atp_spider}`);
-			if(!atp_cache[atp_spider]) {
+			console.log(`Fetching ATP data for ${spider_name}`);
+			if(!atp_cache[spider_name]) {
 				try {
-					atp_cache[atp_spider] = await fetch_atp_data(spider_url?spider_url:atp_spider, last_run);
-					if(atp_spider.overwrite_locations) {
-						for(const overwrite_location of atp_spider.overwrite_locations) {
-							const {ref, lat, lon} = overwrite_location;
-							const atp_item = atp_cache[atp_spider].find(item => item.tags.ref === ref);
-							if(atp_item) {
-								atp_item.coordinates = [lat, lon];
+					atp_cache[spider_name] = await fetch_atp_data(spider, last_run);
+					for(const osm_subtype of spider.osm) {
+						if(osm_subtype.overwrite_locations) {
+							for(const overwrite_location of osm_subtype.overwrite_locations) {
+								const {key, value} = osm_subtype;
+								const {ref, lat, lon} = overwrite_location;
+								const atp_item = atp_cache[spider_name].find(item => 
+									item.tags.ref === ref &&
+									item.tags[key] === value
+								);
+								if(atp_item) {
+									atp_item.coordinates = [lat, lon];
+								}
 							}
 						}
 					}
 				}
 				catch(error) {
-					console.error(atp_spider, error);
-					atp_cache[atp_spider] = [];
+					console.error(spider_name, error);
+					atp_cache[spider_name] = [];
 				}
 			}
 			resolve();
-		}, 1500 * index));
+		}, 250 * index));
 		promises.push(promise);
 	});
 	return Promise.all(promises);
