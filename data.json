@@ -880,5 +880,29 @@
 				]
 			}
 		]
+	},
+	{
+		"name": "Speedy",
+		"spider_name": "speedy_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "post_office",
+				"wikidata": ["brand", "Q131312685"],
+				"compare_keys": [
+					"opening_hours",
+					"ref"
+				]
+			},
+			{
+				"key": "amenity",
+				"value": "parcel_locker",
+				"wikidata": ["brand", "Q131312685"],
+				"compare_keys": [
+					"opening_hours",
+					"ref"
+				]
+			}
+		]
 	}
 ]
