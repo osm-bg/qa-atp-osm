@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { caclulate_distance, drop_tags, calc_bbox, generate_metadata } from './utils.js';
+import { calculate_distance, drop_tags, calc_bbox, generate_metadata } from './utils.js';
 
 import { fetch_all_osm_data } from './build_osm.js';
 import { populate_atp_cache } from './build_atp.js';
@@ -9,7 +9,7 @@ function match_atp_to_osm(atp, osm_points, max_distance, match_by_ref) {
 		const ref = atp.tags.ref;
 		const osm_index = osm_points.findIndex(osm => osm?.tags?.ref === ref);
 		if(osm_index != -1) {
-			const distance = caclulate_distance(atp, osm_points[osm_index]);
+			const distance = calculate_distance(atp, osm_points[osm_index]);
 			if(distance > max_distance) {
 				console.log(`[${atp.tags['@spider']}] Match by ref ${ref} found, but distance ${distance} is greater than max distance ${max_distance}`);
 				return {index: -1};
@@ -22,7 +22,7 @@ function match_atp_to_osm(atp, osm_points, max_distance, match_by_ref) {
 	}
 	else {
 		const bbox = calc_bbox(atp.coordinates, max_distance);
-		const distances = osm_points.map(osm => caclulate_distance(atp, osm, bbox));
+		const distances = osm_points.map(osm => calculate_distance(atp, osm, bbox));
 		const closest_index = distances.indexOf(Math.min(...(distances)));
 	
 		if(closest_index != -1 && (distances[closest_index] != +Infinity || !max_distance)) {

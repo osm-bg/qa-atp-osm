@@ -1,4 +1,4 @@
-export function caclulate_distance(a, b, bbox=false) {
+export function calculate_distance(a, b, bbox=false) {
 	if(!a || !b) {
 		return +Infinity;
 	}
