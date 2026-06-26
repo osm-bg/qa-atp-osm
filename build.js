@@ -128,14 +128,10 @@ async function start() {
 					);
 			}
 
-			let atp_points;
-			if(spider.atp_options?.skip_filtering) {
-				atp_points = atp_cache[spider_name];
-			}
-			else {
+			let atp_points = atp_cache[spider_name];
+			if(!spider.atp_options?.skip_filtering) {
 				atp_points = atp_points.filter(filter_func);
 			}
-
 
 			const osm_points = osm_data.filter(filter_func);
 			console.log(`Comparing ${osm_points.length} OSM points and ${atp_points.length} ATP points for ${key}=${value}`);
