@@ -940,7 +940,7 @@
 		"spider_name": "sofia_urban_mobility_center_bg",
 		"osm": [
 			{
-				"key": "amenity",
+				"key": "shop",
 				"value": "tickets",
 				"wikidata": ["brand", "Q7553668"],
 				"compare_keys": [
