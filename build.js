@@ -35,16 +35,16 @@ function match_atp_to_osm(atp, osm_points, max_distance, match_by_ref) {
 	return {index: -1};
 }
 
-function match_points(osm_points, atp_points, compare_keys, match_by_ref){
+function match_points(osm_points, atp_points, compare_keys, matcher_options) {
 	let matches = [];
 
-	const max_distance = /*shop.max_distance?shop.max_distance:*/configs.max_distance;
+	const max_distance = matcher_options?.max_distance || configs.max_distance;
 
 	atp_points.forEach((atp, index) => {
 		matches.push({osm: false, atp: drop_tags(atp, true)});
 	});
 
-	if(match_by_ref) {
+	if(matcher_options?.match_by_ref) {
 		console.log('Matching by ref');
 
 	}
@@ -106,26 +106,41 @@ async function start() {
 	);
 
 	let osm_data = await fetch_all_osm_data(spiders);
-	let atp_cache = {};
-	await populate_atp_cache(spiders, atp_cache);
+	let atp_cache = await populate_atp_cache(spiders);
 	let metadata_list = [];
 	for(const spider of spiders) {
 		const {spider_name, osm} = spider;
 		console.log(`Starting ${spider_name}`);
 		for(const osm_item of osm) {
-			const {key, value, wikidata, compare_keys, match_by_ref} = osm_item;
-			const [wikidata_key, wikidata_value] = wikidata;
+			const {key, value, compare_keys} = osm_item;
+			let filter_func;
 
-			const osm_points = osm_data.filter(osm_point => 
-				osm_point.tags[key] === value &&
-				osm_point.tags[`${wikidata_key}:wikidata`] === wikidata_value
-			);
-			const atp_points = atp_cache[spider_name].filter(atp_point => 
-				atp_point.tags[key] === value &&
-				atp_point.tags[`${wikidata_key}:wikidata`] === wikidata_value
-			);
+			if(!osm_item.wikidata) {
+				filter_func = item => 
+					item.tags[key] === value;
+			}
+			else {
+				const wikidatas = osm_item.wikidata ? [osm_item.wikidata] : osm_item.wikidatas;
+				filter_func = item => 
+					item.tags[key] === value &&
+					wikidatas.some(([wikidata_key, wikidata_value]) =>
+						item.tags[`${wikidata_key}:wikidata`] === wikidata_value
+					);
+			}
+
+			let atp_points;
+			if(spider.atp_options?.skip_filtering) {
+				atp_points = atp_cache[spider_name];
+			}
+			else {
+				atp_points = atp_points.filter(filter_func);
+			}
+
+
+			const osm_points = osm_data.filter(filter_func);
+			console.log(`Comparing ${osm_points.length} OSM points and ${atp_points.length} ATP points for ${key}=${value}`);
 			
-			const matched = match_points(osm_points, atp_points, compare_keys, match_by_ref);
+			const matched = match_points(osm_points, atp_points, compare_keys, spider.matcher_options);
 			const metadata = generate_metadata({key, value, ...spider}, matched);
 			save_results(matched, {compare_keys, date: today, ...metadata});
 			metadata_list.push(metadata);

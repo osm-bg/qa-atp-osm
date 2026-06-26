@@ -9,7 +9,7 @@ function generate_overpass_query(wikidata_pairs) {
     + 'area(id:3600186382)->.searchArea;'
 	+ '('
 	+ types.map(type => 
-		`nwr["${type}:wikidata"~"^${Array.from(wikidata_pairs.get(type)).join('|')}$"](area.searchArea);`
+		`nwr["${type}"~"^${Array.from(wikidata_pairs.get(type)).join('|')}$"](area.searchArea);`
 	).join('')
 	+ ');'
 	+ 'out center;';
@@ -17,16 +17,32 @@ function generate_overpass_query(wikidata_pairs) {
 }
 
 export async function fetch_all_osm_data(spiders, retry=false) {
-	const wikidata_pairs = spiders.reduce((acc, spider) => {
+	const wikidata_pairs = new Map();
+	function add_pair(type, wikidata) {
+		if(!wikidata_pairs.has(type)) {
+			wikidata_pairs.set(type, new Set());
+		}
+		wikidata_pairs.get(type).add(wikidata);
+	}
+	spiders.forEach(spider => {
 		spider.osm.forEach(osm_item => {
-			const [type, wikidata] = osm_item.wikidata;
-			if(!acc.has(type)) {
-				acc.set(type, new Set());
+			if(osm_item.wikidatas) {
+				osm_item.wikidatas.forEach(([type, wikidata]) => {
+					add_pair(`${type}:wikidata`, wikidata);
+				});
 			}
-			acc.get(type).add(wikidata);
+			else {
+				if(typeof osm_item.wikidata === 'boolean') {
+					for(const osm of spider.osm) {
+						add_pair(osm.key, osm.value);
+					}
+					return;
+				}
+				const [type, wikidata] = osm_item.wikidata;
+				add_pair(`${type}:wikidata`, wikidata);
+			}
 		});
-		return acc;
-	}, new Map());
+	});
 	const query = generate_overpass_query(wikidata_pairs);
 	console.log('Querying Overpass Turbo');
 	
@@ -51,7 +67,7 @@ export async function fetch_all_osm_data(spiders, retry=false) {
 
 		console.error('ovepass returned empty result set, retrying');
 
-		to_return = await fetch_all_osm_data(overpass_pairs, true);
+		to_return = await fetch_all_osm_data(spiders, true);
 	}
 	preprocess_osm_data(to_return);
 	return to_return;

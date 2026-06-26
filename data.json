@@ -112,7 +112,7 @@
 			{
 				"key": "shop",
 				"value": "supermarket",
-				"wikidata": [["brand", "Q537781"], ["brand", "Q124377887"]],
+				"wikidatas": [["brand", "Q537781"], ["brand", "Q124377887"]],
 				"compare_keys": [
 					"opening_hours",
 					"phone"
