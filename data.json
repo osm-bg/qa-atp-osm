@@ -941,7 +941,7 @@
 		"osm": [
 			{
 				"key": "shop",
-				"value": "tickets",
+				"value": "ticket",
 				"wikidata": ["brand", "Q7553668"],
 				"compare_keys": [
 					"opening_hours"
