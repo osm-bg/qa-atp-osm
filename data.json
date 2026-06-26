@@ -904,5 +904,35 @@
 				]
 			}
 		]
+	},
+	{
+		"name": "SDI Broker",
+		"spider_name": "sdi_broker_bg",
+		"osm": [
+			{
+				"key": "office",
+				"value": "insurance",
+				"wikidata": ["brand", "Q65224484"],
+				"compare_keys": [
+					"phone",
+					"opening_hours",
+					"ref"
+				]
+			}
+		]
+	},
+	{
+		"name": "Център за градска мобилност",
+		"spider_name": "sofia_urban_mobility_center_bg",
+		"osm": [
+			{
+				"key": "amenity",
+				"value": "tickets",
+				"wikidata": ["brand", "Q7553668"],
+				"compare_keys": [
+					"opening_hours"
+				]
+			}
+		]
 	}
 ]
