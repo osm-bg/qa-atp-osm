@@ -615,8 +615,7 @@
 				"value": "bank",
 				"wikidata": ["brand", "Q7887555"],
 				"compare_keys": [
-					"opening_hours",
-					"phone"
+					"opening_hours"
 				]
 			}
 		]
